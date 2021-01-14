@@ -1,9 +1,11 @@
 # from pyvirtualdisplay import Display
+from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 import time
 import sys
 from telegram import send_message, send_photo
 from creds import username, password
+
 
 def has_website_changed():
     '''Checks for changes in the site. Returns True if a change was found.'''
@@ -42,15 +44,23 @@ def has_website_changed():
     return no_appointment_text not in main_page.text
 
 
-# To run Chrome in a virtual display.
+# To run Chrome in a virtual display with xvfb (just in Linux)
 # display = Display(visible=0, size=(800, 600))
 # display.start()
 
-
 seconds_between_checks = 10 * 60
 
+# Setting Chrome options to run the scraper headless.
+chrome_options = Options()
+# chrome_options.add_argument("--disable-extensions")
+# chrome_options.add_argument("--disable-gpu")
+# chrome_options.add_argument("--no-sandbox") # linux only
+chrome_options.add_argument("--headless")
+
 # Initialize the chromediver (must be installed and in PATH)
-driver = webdriver.Chrome()
+# Needed to implement the headless option
+driver = webdriver.Chrome(options=chrome_options)
+# driver = webdriver.Chrome()
 
 while True:
     print('Starting a new check.')
@@ -66,9 +76,11 @@ while True:
         # time.sleep(seconds_between_checks)
         for seconds_remaining in range(int(seconds_between_checks), 0, -1):
             sys.stdout.write('\r')
-            sys.stdout.write(f'No change was found. Checking again in {seconds_remaining} seconds.')
+            sys.stdout.write(
+                f'No change was found. Checking again in {seconds_remaining} seconds.')
             sys.stdout.flush()
             time.sleep(1)
+        print('\n')
 
 
 # driver.quit()
