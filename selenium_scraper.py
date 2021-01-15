@@ -63,7 +63,8 @@ driver = webdriver.Chrome(options=chrome_options)
 # driver = webdriver.Chrome()
 
 while True:
-    print('Starting a new check.')
+    current_time = time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime())
+    print(f'Starting a new check at {current_time}.')
     if has_website_changed():
         print('A change was found. Notifying it.')
         send_message('A change was found. Here is an screenshot.')
