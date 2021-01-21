@@ -7,13 +7,12 @@ from telegram import send_message, send_photo
 from creds import username, password
 
 
-def has_website_changed():
-    '''Checks for changes in the site. Returns True if a change was found.'''
-    # First website
-    driver.get('https://ais.usvisa-info.com/en-pe/niv/schedule/32404946/payment')
+payment_url = 'https://ais.usvisa-info.com/en-pe/niv/schedule/32476620/payment'
 
-    # Checking if website is still logged
+
+def log_in():
     print('Logging in.')
+    # Checking if website is still logged
     if driver.current_url == 'https://ais.usvisa-info.com/en-pe/niv/users/sign_in':
         # Clicking the first prompt, if there is one
         try:
@@ -37,6 +36,15 @@ def has_website_changed():
     else:
         print('Already logged.')
 
+
+def has_website_changed():
+    '''Checks for changes in the site. Returns True if a change was found.'''
+    # First website
+    driver.get(payment_url)
+
+    # Logging in
+    log_in()
+
     print('Checking for changes.')
     no_appointment_text = 'There are no available appointments at this time.'
     main_page = driver.find_element_by_id('main')
@@ -59,8 +67,8 @@ chrome_options.add_argument("--headless")
 
 # Initialize the chromediver (must be installed and in PATH)
 # Needed to implement the headless option
-driver = webdriver.Chrome(options=chrome_options)
-# driver = webdriver.Chrome()
+# driver = webdriver.Chrome(options=chrome_options)
+driver = webdriver.Chrome()
 
 while True:
     current_time = time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime())

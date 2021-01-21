@@ -2,6 +2,7 @@
 This scraper is made for checking the ais.usvisa-info.com site in time intervals. It logs you in, and scrape the payment site and when there's an available appointment (a change on the original site where there are not appointments) it will notify you through a Telegram bot.
 
 ## TODO
+- [x] Function to log in.
 - [x] Add a timestamp to each run.
 - [ ] Implement the screenshot.
 - [ ] Get the Telegram bot to answer last and next check status.
