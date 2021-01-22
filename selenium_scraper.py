@@ -60,10 +60,10 @@ def run_visa_scraper(url, no_appointment_text):
 
     # Initialize the chromediver (must be installed and in PATH)
     # Needed to implement the headless option
-    # driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     # Comment the previous line and uncomment the next for visualizing
     # the website when debugging.
-    driver = webdriver.Chrome()
+    # driver = webdriver.Chrome()
 
     while True:
         current_time = time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime())
