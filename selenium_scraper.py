@@ -88,6 +88,12 @@ def run_visa_scraper(url, no_appointment_text):
 
 
 if __name__ == "__main__":
-    url = 'https://ais.usvisa-info.com/en-pe/niv/schedule/32404946/payment'
-    text = 'There are no available appointments at this time.'
+    # Checking for an appointment
+    # url = 'https://ais.usvisa-info.com/en-pe/niv/schedule/32404946/payment'
+    # text = 'There are no available appointments at this time.'
+
+    # Checking for a rescheduled
+    url = 'https://ais.usvisa-info.com/en-pe/niv/schedule/32404946/appointment'
+    text = 'There are no available appointments at the selected location.'
+
     run_visa_scraper(url, text)
