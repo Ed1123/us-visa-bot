@@ -71,9 +71,7 @@ def run_visa_scraper(url, no_appointment_text):
         if has_website_changed():
             print('A change was found. Notifying it.')
             send_message('A change was found. Here is an screenshot.')
-            # Implement screenshot.
-            # Missing get the driver object after checking...
-            # send_photo()
+            send_photo(driver.get_screenshot_as_png())
             exit()
         else:
             # print(f'No change was found. Checking again in {seconds_between_checks} seconds.')
@@ -94,6 +92,7 @@ if __name__ == "__main__":
 
     # Checking for a rescheduled
     url = 'https://ais.usvisa-info.com/en-pe/niv/schedule/32404946/appointment'
+    # text = 'FORCING SCREENSHOT'
     text = 'There are no available appointments at the selected location.'
 
     run_visa_scraper(url, text)
