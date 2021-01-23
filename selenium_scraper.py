@@ -10,7 +10,7 @@ from creds import username, password
 def run_visa_scraper(url, no_appointment_text):
     def has_website_changed():
         '''Checks for changes in the site. Returns True if a change was found.'''
-        # First website
+        # Getting the website to check
         driver.get(url)
 
         # Checking if website is still logged
@@ -33,7 +33,11 @@ def run_visa_scraper(url, no_appointment_text):
             # Clicking 'Sign in'
             driver.find_element_by_xpath(
                 '//*[@id="new_user"]/p[1]/input').click()
-            time.sleep(5)
+            
+            # Waiting for the page to load.
+            # 5 seconds may be ok for a computer, but it doesn't seem enougn for the Raspberry Pi 4.
+            time.sleep(7)
+
             # Logging to screen
             print('Logged in.')
         # else:
