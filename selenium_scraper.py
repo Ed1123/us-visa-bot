@@ -36,7 +36,7 @@ def run_visa_scraper(url, no_appointment_text):
             
             # Waiting for the page to load.
             # 5 seconds may be ok for a computer, but it doesn't seem enougn for the Raspberry Pi 4.
-            time.sleep(7)
+            time.sleep(10)
 
             # Logging to screen
             print('Logged in.')
