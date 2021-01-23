@@ -14,8 +14,8 @@ def run_visa_scraper(url, no_appointment_text):
         driver.get(url)
 
         # Checking if website is still logged
-        print('Logging in.')
         if driver.current_url == 'https://ais.usvisa-info.com/en-pe/niv/users/sign_in':
+            print('Logging in.')
             # Clicking the first prompt, if there is one
             try:
                 driver.find_element_by_xpath(
@@ -36,8 +36,8 @@ def run_visa_scraper(url, no_appointment_text):
             time.sleep(5)
             # Logging to screen
             print('Logged in.')
-        else:
-            print('Already logged.')
+        # else:
+        #     print('Already logged.')
 
         print('Checking for changes.')
         # no_appointment_text = 'There are no available appointments at this time.'
