@@ -70,8 +70,8 @@ def run_visa_scraper(url, no_appointment_text):
         print(f'Starting a new check at {current_time}.')
         if has_website_changed():
             print('A change was found. Notifying it.')
-            send_message('A change was found. Here is an screenshot.')
             send_photo(driver.get_screenshot_as_png())
+            send_message('A change was found. Here is an screenshot.')
             exit()
         else:
             # print(f'No change was found. Checking again in {seconds_between_checks} seconds.')
