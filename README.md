@@ -4,7 +4,8 @@ This scraper is made for checking the ais.usvisa-info.com site in time intervals
 ## TODO
 - [x] Function to log in.
 - [x] Add a timestamp to each run.
-- [ ] Implement the screenshot.
+- [x] Implement the screenshot.
+- [ ] Add interaction with the bot.
 - [ ] Get the Telegram bot to answer last and next check status.
 - [ ] Add tests.
 - [ ] Add requiriments.
