@@ -76,6 +76,7 @@ def run_visa_scraper(url, no_appointment_text):
             print('A change was found. Notifying it.')
             send_photo(driver.get_screenshot_as_png())
             send_message('A change was found. Here is an screenshot.')
+            driver.close()
             exit()
         else:
             # print(f'No change was found. Checking again in {seconds_between_checks} seconds.')
