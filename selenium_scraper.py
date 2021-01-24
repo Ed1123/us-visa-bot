@@ -48,8 +48,10 @@ def run_visa_scraper(url, no_appointment_text):
         main_page = driver.find_element_by_id('main')
 
         # For debugging false positives.
-        with open('debugging/main_page', 'w') as f:
+        with open('debugging/main_page_text', 'w') as f:
             f.write(main_page.text)
+        with open('debugging/main_page_content', 'w') as f:
+            f.write(main_page.content)
         with open('debugging/page_source', 'w', encoding='utf-8') as f:
             f.write(driver.page_source)
 
