@@ -44,15 +44,19 @@ def run_visa_scraper(url, no_appointment_text):
         #     print('Already logged.')
 
         print('Checking for changes.')
-        # no_appointment_text = 'There are no available appointments at this time.'
+        
+        # For debugging false positives.
+        with open('debugging/page_source.html', 'w', encoding='utf-8') as f:
+            f.write(driver.page_source)
+
+        # Getting main text
         main_page = driver.find_element_by_id('main')
 
         # For debugging false positives.
         with open('debugging/main_page', 'w') as f:
             f.write(main_page.text)
-        with open('debugging/page_source', 'w', encoding='utf-8') as f:
-            f.write(driver.page_source)
 
+        # If the "no appointment" text is not found return True. A change was found. 
         return no_appointment_text not in main_page.text
 
     # To run Chrome in a virtual display with xvfb (just in Linux)
