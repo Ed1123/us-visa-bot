@@ -43,6 +43,11 @@ def run_visa_scraper(url, no_appointment_text):
         # else:
         #     print('Already logged.')
 
+        # Getting the website to check again
+        # in case it was redirected to another website and
+        # avoid using a timer for waiting for the login redirect. DIDN'T WORK
+        driver.get(url)
+
         print('Checking for changes.')
         
         # For debugging false positives.
@@ -70,14 +75,11 @@ def run_visa_scraper(url, no_appointment_text):
     # chrome_options.add_argument("--disable-extensions")
     # chrome_options.add_argument("--disable-gpu")
     # chrome_options.add_argument("--no-sandbox") # linux only
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless") # Comment for visualy debugging
 
     # Initialize the chromediver (must be installed and in PATH)
     # Needed to implement the headless option
     driver = webdriver.Chrome(options=chrome_options)
-    # Comment the previous line and uncomment the next for visualizing
-    # the website when debugging.
-    # driver = webdriver.Chrome()
 
     while True:
         current_time = time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime())
