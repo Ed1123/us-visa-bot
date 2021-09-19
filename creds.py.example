@@ -1,6 +1,7 @@
 # ais.usvisa-info.com credentials
 username = ''
 password = ''
+url_id = ''
 
 # Telegram bot token and chat 
 token = ''
