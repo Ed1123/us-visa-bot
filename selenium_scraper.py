@@ -4,7 +4,7 @@ from selenium import webdriver
 import time
 import sys
 from telegram import send_message, send_photo
-from creds import username, password
+from creds import username, password, url_id
 
 
 def run_visa_scraper(url, no_appointment_text):
@@ -104,14 +104,19 @@ def run_visa_scraper(url, no_appointment_text):
             print('\n')
 
 
-if __name__ == "__main__":
+def main():
+    base_url = f'https://ais.usvisa-info.com/en-pe/niv/schedule/{url_id}'
+    
     # Checking for an appointment
-    # url = 'https://ais.usvisa-info.com/en-pe/niv/schedule/32404946/payment'
-    # text = 'There are no available appointments at this time.'
+    url = base_url + '/payment'
+    text = 'There are no available appointments at this time.'
 
     # Checking for a rescheduled
-    url = 'https://ais.usvisa-info.com/en-pe/niv/schedule/32404946/appointment'
+    # url = base_url + '/appointment'
     # text = 'FORCING SCREENSHOT'
-    text = 'There are no available appointments at the selected location.'
+    # text = 'There are no available appointments at the selected location.'
 
     run_visa_scraper(url, text)
+
+if __name__ == "__main__":
+    main()
