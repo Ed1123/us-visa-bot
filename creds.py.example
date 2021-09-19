@@ -1,8 +1,8 @@
 # ais.usvisa-info.com credentials
-username = ''
-password = ''
-url_id = ''
+username = 'your_username'
+password = 'your_strong_password'
+url_id = '41231513' # This is the number id in the url (e.g.: https://ais.usvisa-info.com/en-pe/niv/schedule/41231513)
 
 # Telegram bot token and chat 
-token = ''
-chat_id = ''
+token = 'telegram_token'
+chat_id = 'chat_id'
