@@ -4,7 +4,7 @@ from selenium import webdriver
 import time
 import sys
 from telegram import send_message, send_photo
-from creds import username, password, url_id
+from creds import username, password, url_id, country_code
 
 
 def run_visa_scraper(url, no_appointment_text):
@@ -14,7 +14,7 @@ def run_visa_scraper(url, no_appointment_text):
         driver.get(url)
 
         # Checking if website is still logged
-        if driver.current_url == 'https://ais.usvisa-info.com/en-pe/niv/users/sign_in':
+        if driver.current_url == f'https://ais.usvisa-info.com/en-{country_code}/niv/users/sign_in':
             print('Logging in.')
             # Clicking the first prompt, if there is one
             try:
@@ -105,7 +105,7 @@ def run_visa_scraper(url, no_appointment_text):
 
 
 def main():
-    base_url = f'https://ais.usvisa-info.com/en-pe/niv/schedule/{url_id}'
+    base_url = f'https://ais.usvisa-info.com/en-{country_code}/niv/schedule/{url_id}'
     
     # Checking for an appointment
     url = base_url + '/payment'
