@@ -1,4 +1,5 @@
 # from pyvirtualdisplay import Display
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 import time
@@ -18,21 +19,18 @@ def run_visa_scraper(url, no_appointment_text):
             print('Logging in.')
             # Clicking the first prompt, if there is one
             try:
-                driver.find_element_by_xpath(
-                    '/html/body/div[6]/div[3]/div/button').click()
+                driver.find_element(By.XPATH, '/html/body/div[6]/div[3]/div/button').click()
             except:
                 pass
             # Filling the user and password
-            user_box = driver.find_element_by_name('user[email]')
+            user_box = driver.find_element(By.NAME, 'user[email]')
             user_box.send_keys(username)
-            password_box = driver.find_element_by_name('user[password]')
+            password_box = driver.find_element(By.NAME, 'user[password]')
             password_box.send_keys(password)
             # Clicking the checkbox
-            driver.find_element_by_xpath(
-                '//*[@id="new_user"]/div[3]/label/div').click()
+            driver.find_element(By.XPATH, '//*[@id="new_user"]/div[3]/label/div').click()
             # Clicking 'Sign in'
-            driver.find_element_by_xpath(
-                '//*[@id="new_user"]/p[1]/input').click()
+            driver.find_element(By.XPATH, '//*[@id="new_user"]/p[1]/input').click()
             
             # Waiting for the page to load.
             # 5 seconds may be ok for a computer, but it doesn't seem enougn for the Raspberry Pi 4.
@@ -55,7 +53,7 @@ def run_visa_scraper(url, no_appointment_text):
         #     f.write(driver.page_source)
 
         # Getting main text
-        main_page = driver.find_element_by_id('main')
+        main_page = driver.find_element(By.ID, 'main')
 
         # For debugging false positives.
         with open('debugging/main_page', 'w') as f:
