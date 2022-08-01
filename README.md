@@ -20,3 +20,7 @@ Run via SSH on a Raspberry. The process will create a
 nohup python3 selenium_scraper.py &
 ```
 
+## Run tests
+```
+python3 -m unittest test_selenium_scraper
+```
