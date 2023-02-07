@@ -1,17 +1,19 @@
 # from pyvirtualdisplay import Display
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
-import time
 import sys
+import time
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+
+from creds import country_code, password, url_id, username
 from telegram import send_message, send_photo
-from creds import username, password, url_id, country_code
 
 
 def log_in(driver):
     # Clicking the first prompt, if there is one
     try:
-        driver.find_element(By.XPATH, '/html/body/div[6]/div[3]/div/button').click()
+        driver.find_element(By.XPATH, '/html/body/div/div[3]/div/button').click()
     except:
         pass
     # Filling the user and password
@@ -20,9 +22,9 @@ def log_in(driver):
     password_box = driver.find_element(By.NAME, 'user[password]')
     password_box.send_keys(password)
     # Clicking the checkbox
-    driver.find_element(By.XPATH, '//*[@id="new_user"]/div[3]/label/div').click()
+    driver.find_element(By.XPATH, '//*[@id="sign_in_form"]/div/label/div').click()
     # Clicking 'Sign in'
-    driver.find_element(By.XPATH, '//*[@id="new_user"]/p[1]/input').click()
+    driver.find_element(By.XPATH, '//*[@id="sign_in_form"]/p/input').click()
 
     # Waiting for the page to load.
     # 5 seconds may be ok for a computer, but it doesn't seem enougn for the Raspberry Pi 4.
@@ -60,7 +62,7 @@ def has_website_changed(driver, url, no_appointment_text):
     with open('debugging/main_page', 'w') as f:
         f.write(main_page.text)
 
-    # If the "no appointment" text is not found return True. A change was found. 
+    # If the "no appointment" text is not found return True. A change was found.
     return no_appointment_text not in main_page.text
 
 
@@ -69,14 +71,14 @@ def run_visa_scraper(url, no_appointment_text):
     # display = Display(visible=0, size=(800, 600))
     # display.start()
 
-    seconds_between_checks = 10 * 60
+    seconds_between_checks = 4 * 60
 
     # Setting Chrome options to run the scraper headless.
     chrome_options = Options()
     # chrome_options.add_argument("--disable-extensions")
     # chrome_options.add_argument("--disable-gpu")
     # chrome_options.add_argument("--no-sandbox") # linux only
-    chrome_options.add_argument("--headless") # Comment for visualy debugging
+    chrome_options.add_argument("--headless")  # Comment for visualy debugging
 
     # Initialize the chromediver (must be installed and in PATH)
     # Needed to implement the headless option
@@ -99,7 +101,8 @@ def run_visa_scraper(url, no_appointment_text):
             for seconds_remaining in range(int(seconds_between_checks), 0, -1):
                 sys.stdout.write('\r')
                 sys.stdout.write(
-                    f'No change was found. Checking again in {seconds_remaining} seconds.')
+                    f'No change was found. Checking again in {seconds_remaining} seconds.'
+                )
                 sys.stdout.flush()
                 time.sleep(1)
             print('\n')
@@ -107,7 +110,7 @@ def run_visa_scraper(url, no_appointment_text):
 
 def main():
     base_url = f'https://ais.usvisa-info.com/en-{country_code}/niv/schedule/{url_id}'
-    
+
     # Checking for an appointment
     url = base_url + '/payment'
     text = 'There are no available appointments at this time.'
@@ -118,6 +121,7 @@ def main():
     # text = 'There are no available appointments at the selected location.'
 
     run_visa_scraper(url, text)
+
 
 if __name__ == "__main__":
     main()
