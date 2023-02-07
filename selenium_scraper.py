@@ -14,7 +14,7 @@ BASE_URL = f'https://ais.usvisa-info.com/en-{country_code}/niv'
 
 
 def log_in(driver):
-    if driver.current_url != BASE_URL + 'users/sign_in':
+    if driver.current_url != BASE_URL + '/users/sign_in':
         print('Already logged.')
         print(driver.current_url)
         return
@@ -127,7 +127,7 @@ def run_visa_scraper(url, no_appointment_text):
 
 
 def main():
-    base_url = BASE_URL + f'/niv/schedule/{url_id}'
+    base_url = BASE_URL + f'/schedule/{url_id}'
 
     # Checking for an appointment
     url = base_url + '/payment'
