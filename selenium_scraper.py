@@ -53,22 +53,6 @@ def has_website_changed(driver, url, no_appointment_text):
         except ElementNotInteractableException:
             time.sleep(5)
 
-    while True:
-        # Getting the website to check again
-        # in case it was redirected to another website and
-        # avoid using a timer for waiting for the login redirect. DIDN'T WORK
-        driver.get(url)
-
-        print('Checking for changes.')
-
-        if "429 Too Many Requests" in driver.page_source:
-            print("429 Too Many Requests.")
-            time.sleep(3)
-            continue
-
-        print("Page reached.")
-        break
-
     # # For debugging false positives.
     # with open('debugging/page_source.html', 'w', encoding='utf-8') as f:
     #     f.write(driver.page_source)
@@ -89,7 +73,7 @@ def run_visa_scraper(url, no_appointment_text):
     # display = Display(visible=0, size=(800, 600))
     # display.start()
 
-    seconds_between_checks = 4 * 60
+    seconds_between_checks = 10 * 60
 
     # Setting Chrome options to run the scraper headless.
     chrome_options = Options()
@@ -107,10 +91,11 @@ def run_visa_scraper(url, no_appointment_text):
         print(f'Starting a new check at {current_time}.')
         if has_website_changed(driver, url, no_appointment_text):
             print('A change was found. Notifying it.')
-            send_photo(driver.get_screenshot_as_png())
             send_message('A change was found. Here is an screenshot.')
+            send_photo(driver.get_screenshot_as_png())
 
             # Closing the driver before quicking the script.
+            input('Press enter to quit...')
             driver.close()
             exit()
         else:
