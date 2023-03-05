@@ -1,4 +1,4 @@
-creds.py
+.env
 archive
 __pycache__
 nohup.out

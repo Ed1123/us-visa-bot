@@ -1,16 +1,20 @@
 # from pyvirtualdisplay import Display
+import os
 import sys
 import time
 
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-from creds import country_code, password, url_id, username
 from telegram import send_message, send_photo
 
-BASE_URL = f'https://ais.usvisa-info.com/en-{country_code}/niv'
+load_dotenv()
+URL_ID = os.getenv('URL_ID')
+COUNTRY_CODE = os.getenv('COUNTRY_CODE')
+BASE_URL = f'https://ais.usvisa-info.com/en-{COUNTRY_CODE}/niv'
 
 
 def log_in(driver):
@@ -28,9 +32,9 @@ def log_in(driver):
         pass
     # Filling the user and password
     user_box = driver.find_element(By.NAME, 'user[email]')
-    user_box.send_keys(username)
+    user_box.send_keys(os.getenv('USERNAME'))
     password_box = driver.find_element(By.NAME, 'user[password]')
-    password_box.send_keys(password)
+    password_box.send_keys(os.getenv('PASSWORD'))
     # Clicking the checkbox
     driver.find_element(By.XPATH, '//*[@id="sign_in_form"]/div/label/div').click()
     # Clicking 'Sign in'
@@ -96,7 +100,8 @@ def run_visa_scraper(url, no_appointment_text):
     # chrome_options.add_argument("--disable-extensions")
     # chrome_options.add_argument("--disable-gpu")
     # chrome_options.add_argument("--no-sandbox") # linux only
-    chrome_options.add_argument("--headless")  # Comment for visualy debugging
+    if os.getenv('HEADLESS') == 'True':
+        chrome_options.add_argument("--headless")  # Comment for visualy debugging
 
     # Initialize the chromediver (must be installed and in PATH)
     # Needed to implement the headless option
@@ -127,7 +132,7 @@ def run_visa_scraper(url, no_appointment_text):
 
 
 def main():
-    base_url = BASE_URL + f'/schedule/{url_id}'
+    base_url = BASE_URL + f'/schedule/{URL_ID}'
 
     # Checking for an appointment
     url = base_url + '/payment'

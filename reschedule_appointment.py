@@ -1,11 +1,11 @@
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
-import time
 import sys
-from telegram import send_message, send_photo
-from creds import username, password
-from selenium_scraper import log_in
+import time
 
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+from selenium_scraper import log_in
+from telegram import send_message, send_photo
 
 url = 'https://ais.usvisa-info.com/en-pe/niv/schedule/32404946/appointment'
 
@@ -55,7 +55,8 @@ def repeat_check(seconds_between_checks):
             for seconds_remaining in range(int(seconds_between_checks), 0, -1):
                 sys.stdout.write('\r')
                 sys.stdout.write(
-                    f'No change was found. Checking again in {seconds_remaining} seconds.')
+                    f'No change was found. Checking again in {seconds_remaining} seconds.'
+                )
                 sys.stdout.flush()
                 time.sleep(1)
             print('\n')
